@@ -9,17 +9,29 @@ const store = createStore((state = 0, action) => {
   //action={type:'string',payload:any}
 
   switch (action.type) {
-    case 'accion':
-      return action.payload
+    case 'incrementar':
+      return state + 1;
+    case 'decrementar':
+      return state - 1;
+    case 'set':
+      return action.payload;
     default:
       return state;
   }
 });
 
-store.dispatch({ type: 'accion', payload: 3 });
-store.dispatch({ type: 'indefinido', payload: 9 });
+store.dispatch({ type: 'nada' });
+console.log('nada: ', store.getState());
 
-console.log(store.getState());
+
+store.dispatch({ type: 'incrementar' });
+console.log('incrementar: ', store.getState());
+
+store.dispatch({ type: 'decrementar' });
+console.log('decrementar: ', store.getState());
+
+store.dispatch({ type: 'set', payload: 15 });
+console.log('set: ', store.getState());
 
 ReactDOM.render(
   <React.StrictMode>
