@@ -1,8 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { createStore } from 'redux';
+
+//createStore: recibe una función, se le conoce como reducer
+const store = createStore((state = 0, action) => {
+  //action={type:'string',payload:any}
+
+  switch (action.type) {
+    case 'accion':
+      return action.payload
+    default:
+      return state;
+  }
+});
+
+store.dispatch({ type: 'accion', payload: 3 });
+store.dispatch({ type: 'indefinido', payload: 9 });
+
+console.log(store.getState());
 
 ReactDOM.render(
   <React.StrictMode>
