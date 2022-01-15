@@ -1,4 +1,4 @@
-import { agregarTarea } from '../actions/tareas/tareasType';
+import { agregarTarea, terminarIniciarTarea } from '../actions/tareas/tareasType';
 
 const initialState = {
   entities: []
@@ -10,6 +10,11 @@ const tareasReducer = (state = initialState, action) => {
       return {
         ...state,
         entities: [...state.entities, action.payload]
+      }
+    case terminarIniciarTarea:
+      return {
+        ...state,
+        entities: action.payload
       }
     default:
       return state;

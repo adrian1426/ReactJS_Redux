@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import TodoItem from './components/TodoItem';
-import { agregarTareaAction } from './redux/actions/tareas/tareasAction';
+import { agregarTareaAction, terminarIniciarTareaAction } from './redux/actions/tareas/tareasAction';
 
 const App = () => {
   const [value, setValue] = useState('');
@@ -25,6 +25,19 @@ const App = () => {
     setValue('');
   };
 
+  const actualizarTarea = tarea => {
+
+    const newEntities = state.entities.map(t => {
+      if (t.id === tarea.id) {
+        return { ...t, completed: !t.completed }
+      }
+
+      return t;
+    });
+
+    dispatch(terminarIniciarTareaAction(newEntities));
+  };
+
   return (
     <div>
       <form onSubmit={agregarTareas}>
@@ -41,7 +54,13 @@ const App = () => {
 
       <ul>
         {
-          state.entities.map(tarea => <TodoItem key={tarea.id} tarea={tarea} />)
+          state.entities.map(tarea => (
+            <TodoItem
+              key={tarea.id}
+              tarea={tarea}
+              actualizarTarea={actualizarTarea}
+            />
+          ))
         }
       </ul>
     </div>
