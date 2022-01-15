@@ -9,7 +9,7 @@ const tareasReducer = (state = initialState, action) => {
     case agregarTarea:
       return {
         ...state,
-        entities: [{}]
+        entities: [...state.entities, action.payload]
       }
     default:
       return state;
