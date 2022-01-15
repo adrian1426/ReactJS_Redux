@@ -1,58 +1,30 @@
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { agregarTareaAction } from './redux/actions/tareas/tareasAction';
 
-export const reducer = (state = 0, action) => {
-  switch (action.type) {
-    case 'incrementar':
-      return state + 1;
-    case 'decrementar':
-      return state - 1;
-    case 'set':
-      return action.payload;
-    default:
-      return state;
-  }
-};
-
-function App() {
-  const [valor, setValor] = useState('');
+const App = () => {
   const dispatch = useDispatch();
-  const state = useSelector(ste => ste);
+  const state = useSelector(x => x);
 
-  const set = () => {
-    dispatch({ type: 'set', payload: valor });
-    setValor('');
+  const agregarTareas = () => {
+    dispatch(agregarTareaAction({}));
   };
 
   return (
     <div>
-      <p>Contador: {state}</p>
+      <form action="">
+        <input type="text" />
+      </form>
 
-      <button
-        onClick={() => dispatch({ type: 'incrementar' })}
-      >
-        Incrementar
-      </button>
+      <button onClick={agregarTareas}>Mostrar todos</button>
+      <button>Completados</button>
+      <button>Incompletos</button>
 
-      <button
-        onClick={() => dispatch({ type: 'decrementar' })}
-      >
-        Decrementar
-      </button>
-
-      <button
-        onClick={set}
-      >
-        Set
-      </button>
-
-      <input
-        value={valor}
-        type="text"
-        onChange={e => setValor(Number(e.target.value))}
-      />
+      <ul>
+        <li>ToDo 1</li>
+        <li>ToDo 2</li>
+      </ul>
     </div>
   );
-}
+};
 
 export default App;
