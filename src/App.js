@@ -1,12 +1,33 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import TodoItem from './components/TodoItem';
-import { agregarTareaAction, terminarIniciarTareaAction } from './redux/actions/tareas/tareasAction';
+import { agregarTareaAction, terminarIniciarTareaAction, filtrarTareaAction } from './redux/actions/tareas/tareasAction';
+
+const tareasFilter = state => {
+  const { entities, filter } = state;
+
+  switch (filter) {
+    case 'completed':
+      return {
+        ...state,
+        entities: entities.filter(x => x.completed)
+      }
+    case 'incompleted':
+      return {
+        ...state,
+        entities: entities.filter(x => !x.completed)
+      }
+    default:
+      return state;
+  }
+};
 
 const App = () => {
   const [value, setValue] = useState('');
   const dispatch = useDispatch();
-  const state = useSelector(x => x);
+  const state = useSelector(x => tareasFilter(x));
+
+  console.log(state);
 
   const agregarTareas = e => {
     e.preventDefault();
@@ -38,6 +59,10 @@ const App = () => {
     dispatch(terminarIniciarTareaAction(newEntities));
   };
 
+  const filtrarTareas = filtro => {
+    dispatch(filtrarTareaAction(filtro));
+  };
+
   return (
     <div>
       <form onSubmit={agregarTareas}>
@@ -48,9 +73,9 @@ const App = () => {
         />
       </form>
 
-      <button>Mostrar todos</button>
-      <button>Completados</button>
-      <button>Incompletos</button>
+      <button onClick={() => filtrarTareas('default')}>Mostrar todos</button>
+      <button onClick={() => filtrarTareas('completed')}>Completados</button>
+      <button onClick={() => filtrarTareas('incompleted')}>Incompletos</button>
 
       <ul>
         {

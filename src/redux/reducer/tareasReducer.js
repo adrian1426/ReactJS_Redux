@@ -1,7 +1,8 @@
-import { agregarTarea, terminarIniciarTarea } from '../actions/tareas/tareasType';
+import { agregarTarea, terminarIniciarTarea, filtrarTarea } from '../actions/tareas/tareasType';
 
 const initialState = {
-  entities: []
+  entities: [],
+  filter: 'default'
 };
 
 const tareasReducer = (state = initialState, action) => {
@@ -15,6 +16,11 @@ const tareasReducer = (state = initialState, action) => {
       return {
         ...state,
         entities: action.payload
+      }
+    case filtrarTarea:
+      return {
+        ...state,
+        filter: action.payload
       }
     default:
       return state;
