@@ -5,26 +5,31 @@ const initialState = {
   filter: 'default'
 };
 
-const tareasReducer = (state = initialState, action) => {
+const entitiesReducer = (stateEntities = initialState.entities, action) => {
   switch (action.type) {
     case agregarTarea:
-      return {
-        ...state,
-        entities: [...state.entities, action.payload]
-      }
+      return [...stateEntities, action.payload];
     case terminarIniciarTarea:
-      return {
-        ...state,
-        entities: action.payload
-      }
-    case filtrarTarea:
-      return {
-        ...state,
-        filter: action.payload
-      }
+      return action.payload;
     default:
-      return state;
+      return stateEntities;
   }
+};
+
+const filtersReducer = (stateFilter = initialState.filter, action) => {
+  switch (action.type) {
+    case filtrarTarea:
+      return action.payload;
+    default:
+      return stateFilter;
+  }
+};
+
+const tareasReducer = (state = initialState, action) => {
+  return {
+    entities: entitiesReducer(state.entities, action),
+    filter: filtersReducer(state.filter, action)
+  };
 };
 
 export default tareasReducer;

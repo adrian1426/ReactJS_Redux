@@ -27,8 +27,6 @@ const App = () => {
   const dispatch = useDispatch();
   const state = useSelector(x => tareasFilter(x));
 
-  console.log(state);
-
   const agregarTareas = e => {
     e.preventDefault();
 
