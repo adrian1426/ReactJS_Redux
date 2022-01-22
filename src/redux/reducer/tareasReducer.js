@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { agregarTarea, terminarIniciarTarea, filtrarTarea } from '../actions/tareas/tareasType';
+import { agregarTarea, terminarIniciarTarea, filtrarTarea, cargarTarea } from '../actions/tareas/tareasType';
 
 const initialState = {
   entities: [],
@@ -11,6 +11,8 @@ const entitiesReducer = (stateEntities = initialState.entities, action) => {
     case agregarTarea:
       return [...stateEntities, action.payload];
     case terminarIniciarTarea:
+      return action.payload;
+    case cargarTarea:
       return action.payload;
     default:
       return stateEntities;

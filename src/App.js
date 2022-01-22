@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import TodoItem from './components/TodoItem';
-import { agregarTareaAction, terminarIniciarTareaAction, filtrarTareaAction } from './redux/actions/tareas/tareasAction';
+import { agregarTareaAction, terminarIniciarTareaAction, filtrarTareaAction, loadingTareaAction, errorTareaAction, cargarTareaAction } from './redux/actions/tareas/tareasAction';
 
 const tareasFilter = state => {
   const { entities, filter } = state;
@@ -22,8 +22,17 @@ const tareasFilter = state => {
   }
 };
 
-const fetchThunk = () => dispatch => {
-  console.log("Soy un thunk: ", dispatch);
+const fetchThunk = () => async dispatch => {
+  dispatch(loadingTareaAction());
+  try {
+    const response = await fetch('https://jsonplaceholder.typicode.com/todos');
+    const data = await response.json();
+    const tareas = data.slice(0, 10);
+
+    dispatch(cargarTareaAction(tareas));
+  } catch (error) {
+    dispatch(errorTareaAction(error.message));
+  }
 };
 
 const App = () => {
