@@ -22,6 +22,10 @@ const tareasFilter = state => {
   }
 };
 
+const fetchThunk = () => dispatch => {
+  console.log("Soy un thunk: ", dispatch);
+};
+
 const App = () => {
   const [value, setValue] = useState('');
   const dispatch = useDispatch();
@@ -74,6 +78,7 @@ const App = () => {
       <button onClick={() => filtrarTareas('default')}>Mostrar todos</button>
       <button onClick={() => filtrarTareas('completed')}>Completados</button>
       <button onClick={() => filtrarTareas('incompleted')}>Incompletos</button>
+      <button onClick={() => dispatch(fetchThunk())}>Thunk</button>
 
       <ul>
         {
