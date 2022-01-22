@@ -48,7 +48,7 @@ const App = () => {
   const fetchThunk = () => async dispatch => {
     dispatch(pendingTareaAction());
     try {
-      const response = await fetch('https://jsonplaceholder.typicode.com/todos');
+      const response = await fetch('https://jsonplaceholder.typicode.com/todosAdrian');
       const data = await response.json();
       const tareas = data.slice(0, 10);
 
