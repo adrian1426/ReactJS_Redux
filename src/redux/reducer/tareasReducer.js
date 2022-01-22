@@ -1,4 +1,5 @@
 import { agregarTarea, terminarIniciarTarea, filtrarTarea, cargarTarea } from '../actions/tareas/tareasType';
+import { makeSetReducer } from './makeReducers/makeSetReducer';
 
 const initialState = {
   entities: [],
@@ -18,11 +19,4 @@ export const entitiesReducer = (stateEntities = initialState.entities, action) =
   }
 };
 
-export const filtersReducer = (stateFilter = initialState.filter, action) => {
-  switch (action.type) {
-    case filtrarTarea:
-      return action.payload;
-    default:
-      return stateFilter;
-  }
-};
+export const filtersReducer = makeSetReducer([filtrarTarea]);
