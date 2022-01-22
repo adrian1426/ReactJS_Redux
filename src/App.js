@@ -3,19 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import TodoItem from './components/TodoItem';
 import { pendingTareaAction, rejectedTareaAction, succededTareaAction } from './redux/actions/fetching/fetchAction';
 import { agregarTareaAction, terminarIniciarTareaAction, filtrarTareaAction, cargarTareaAction } from './redux/actions/tareas/tareasAction';
+import { tareasFilter } from './redux/selectores/tareasSelector';
 
-const tareasFilter = state => {
-  const { todos: { entities }, filter } = state;
-
-  switch (filter) {
-    case 'completed':
-      return entities.filter(x => x.completed);
-    case 'incompleted':
-      return entities.filter(x => !x.completed);
-    default:
-      return entities;
-  }
-};
 
 const App = () => {
   const [value, setValue] = useState('');
@@ -41,7 +30,6 @@ const App = () => {
   };
 
   const actualizarTarea = tarea => {
-
     const newEntities = state.map(t => {
       if (t.id === tarea.id) {
         return { ...t, completed: !t.completed }
