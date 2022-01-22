@@ -1,5 +1,5 @@
 import {
-  agregarTarea, terminarIniciarTarea, filtrarTarea, loadingTarea, errorTarea, cargarTarea
+  agregarTarea, terminarIniciarTarea, filtrarTarea, cargarTarea
 }
   from './tareasType';
 
@@ -15,15 +15,6 @@ export const terminarIniciarTareaAction = payload => ({
 
 export const filtrarTareaAction = payload => ({
   type: filtrarTarea,
-  payload
-});
-
-export const loadingTareaAction = () => ({
-  type: loadingTarea
-});
-
-export const errorTareaAction = payload => ({
-  type: errorTarea,
   payload
 });
 

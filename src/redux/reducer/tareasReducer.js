@@ -1,4 +1,3 @@
-import { combineReducers } from 'redux';
 import { agregarTarea, terminarIniciarTarea, filtrarTarea, cargarTarea } from '../actions/tareas/tareasType';
 
 const initialState = {
@@ -6,7 +5,7 @@ const initialState = {
   filter: 'default'
 };
 
-const entitiesReducer = (stateEntities = initialState.entities, action) => {
+export const entitiesReducer = (stateEntities = initialState.entities, action) => {
   switch (action.type) {
     case agregarTarea:
       return [...stateEntities, action.payload];
@@ -19,7 +18,7 @@ const entitiesReducer = (stateEntities = initialState.entities, action) => {
   }
 };
 
-const filtersReducer = (stateFilter = initialState.filter, action) => {
+export const filtersReducer = (stateFilter = initialState.filter, action) => {
   switch (action.type) {
     case filtrarTarea:
       return action.payload;
@@ -27,10 +26,3 @@ const filtersReducer = (stateFilter = initialState.filter, action) => {
       return stateFilter;
   }
 };
-
-const tareasReducer = combineReducers({
-  entities: entitiesReducer,
-  filter: filtersReducer
-});
-
-export default tareasReducer;

@@ -1,5 +1,14 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { asyncMiddleware } from './asyncMiddleware';
-import reducer from './reducer/tareasReducer';
+import { entitiesReducer, filtersReducer } from './reducer/tareasReducer';
+import { fetchingReducer } from './reducer/fetchingReducer';
 
-export const store = createStore(reducer, applyMiddleware(asyncMiddleware));
+const reducerGlobal = combineReducers({
+  todos: combineReducers({
+    entities: entitiesReducer,
+    status: fetchingReducer
+  }),
+  filter: filtersReducer
+});
+
+export const store = createStore(reducerGlobal, applyMiddleware(asyncMiddleware));
